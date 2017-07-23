@@ -1,0 +1,13 @@
+"use strict";
+
+var Content = function Content(props) {
+
+  return React.createElement(
+    "div",
+    { className: "container-fluid" },
+    React.createElement(Weatherbox, { weather: props.weather })
+  );
+};
+
+window.Content = Content;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9jb21wb25lbnRzL0NvbnRlbnQuanN4Il0sIm5hbWVzIjpbIkNvbnRlbnQiLCJwcm9wcyIsIndlYXRoZXIiLCJ3aW5kb3ciXSwibWFwcGluZ3MiOiI7O0FBQUEsSUFBSUEsVUFBVSxTQUFWQSxPQUFVLENBQUNDLEtBQUQsRUFBVzs7QUFFdkIsU0FDRTtBQUFBO0FBQUEsTUFBSyxXQUFVLGlCQUFmO0FBQ0Usd0JBQUMsVUFBRCxJQUFZLFNBQVNBLE1BQU1DLE9BQTNCO0FBREYsR0FERjtBQUtELENBUEQ7O0FBU0FDLE9BQU9ILE9BQVAsR0FBaUJBLE9BQWpCIiwiZmlsZSI6IkNvbnRlbnQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgQ29udGVudCA9IChwcm9wcykgPT4ge1xuXG4gIHJldHVybihcbiAgICA8ZGl2IGNsYXNzTmFtZT1cImNvbnRhaW5lci1mbHVpZFwiPlxuICAgICAgPFdlYXRoZXJib3ggd2VhdGhlcj17cHJvcHMud2VhdGhlcn0vPlxuICAgIDwvZGl2PlxuICApO1xufVxuXG53aW5kb3cuQ29udGVudCA9IENvbnRlbnQ7Il19
