@@ -1,7 +1,9 @@
 var Footer = (props) => {
   return(
     <div>
-      <h1>Footer</h1>
+      <nav className="navbar navbar-default navbar-fixed-bottom">
+        Mars Weather Application - Built with ReactJS
+      </nav>
     </div>
   );
 }

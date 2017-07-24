@@ -1,7 +1,7 @@
 var Weatherbox = (props) => {
   // JSONprettify(props.weather.hasOWnproperty());
   var currentSol, sols, sol, year, day, month, pressure, sunset, sunrise;
-  var minTemp, maxTemp, avgTemp;
+  var minTemp, maxTemp, avgTemp, opacity;
 
   if(props.weather.hasOwnProperty('results')) {
     JSONprettify(props.weather.results[0]);
@@ -24,6 +24,7 @@ var Weatherbox = (props) => {
     maxTemp = currentSol.max_temp;
     avgTemp = (maxTemp + minTemp) / 2;
 
+    opacity = currentSol.atmo_opacity;
 
     pressure = currentSol.pressure;
 
@@ -82,8 +83,8 @@ var Weatherbox = (props) => {
                   <td>{sunset}</td>
                 </tr>
                 <tr>
-                  <td>July</td>
-                  <td>Dooley</td>
+                  <td>Opacity: </td>
+                  <td>{opacity}</td>
                 </tr>
               </tbody>
             </table>
