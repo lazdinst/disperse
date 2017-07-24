@@ -1,15 +1,17 @@
-// var marsData = (callback) => {
-//   $.ajax({
-//     url: 'http://marsweather.ingenology.com/v1/archive/?page=1&format=jsonp',
-//     type: 'GET',
-//     dataType: 'jsonp',
-//     crossDomain:true,
-//     success: callback,
-//     error: function(err) {
-//       console.log('ERROR ', err);
-//     }
-//   });
-// };
+var marsData = (callback, context) => {
+  $.ajax({
+    url: 'http://marsweather.ingenology.com/v1/archive/?page=1&format=jsonp',
+    type: 'GET',
+    dataType: 'jsonp',
+    crossDomain:true,
+    success: function(data) {
+      callback(data, context);
+    },
+    error: function(err) {
+      console.log('ERROR ', err);
+    }
+  });
+};
 
 
 // var marsData = (callback) => {
