@@ -5,7 +5,6 @@
 
 .weather-card {
   width: 325px;
-  height: 485px;
   background: #fff;
   border-radius: 20px;
   box-sizing: border-box;
@@ -44,17 +43,26 @@
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
   text-align: center;
+  position: inherit;
 }
 
 .weather-card--temperature {
   width: 90%;
-  position: absolute;
+  position: inherit;
   bottom: 3em;
   left: 0;
   right: 0;
   margin: 0 auto;
+  padding: 1em 0 0 0;
   font-family: "Montserrat", sans-serif;
   color: #D95720;
+}
+
+.weather-card-table {
+  width: 75%;
+  padding: 4em 0 0 0;
+  margin: 0 auto;
+  font-size: 12px;
 }
 
 .weather-card--temperature ul {
@@ -86,11 +94,18 @@
 }
 
 .mid-temp {
-  font-size: 1.5em;
+  font-size: 1em;
+}
+
+.mid-temp:after {
+  content: "°";
+  position: absolute;
+  top: 0.05em;
+  right: 0.75em;
 }
 
 .current-temp {
-  font-size: 3em;
+  font-size: 2em;
   position: relative;
 }
 
@@ -107,8 +122,8 @@
 .current-temp:after {
   content: "°";
   position: absolute;
-  top: -0.5em;
-  right: -0.3em;
+  top: -0.25em;
+  right: 0em;
 }
 
 .clouds {

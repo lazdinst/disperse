@@ -2,7 +2,8 @@
 
 var Weatherbox = function Weatherbox(props) {
   // JSONprettify(props.weather.hasOWnproperty());
-  var currentSol, sols, sol, year, day, month;
+  var currentSol, sols, sol, year, day, month, pressure, sunset, sunrise;
+  var minTemp, maxTemp, avgTemp;
 
   if (props.weather.hasOwnProperty('results')) {
     JSONprettify(props.weather.results[0]);
@@ -19,6 +20,16 @@ var Weatherbox = function Weatherbox(props) {
     year = date.slice(0, 4);
     month = date.slice(5, 7);
     day = date.slice(8, 10);
+
+    //Temperature Data
+    minTemp = currentSol.min_temp;
+    maxTemp = currentSol.max_temp;
+    avgTemp = (maxTemp + minTemp) / 2;
+
+    pressure = currentSol.pressure;
+
+    sunrise = currentSol.sunrise.slice(11, 16);
+    sunset = currentSol.sunset.slice(11, 16);
   }
   return React.createElement(
     'div',
@@ -43,74 +54,140 @@ var Weatherbox = function Weatherbox(props) {
           'h1',
           null,
           'Olympus Mons'
-        )
-      ),
-      React.createElement(
-        'div',
-        { className: 'weather-card--details' },
-        React.createElement(
-          'span',
-          { className: 'details--day' },
-          'Sol'
         ),
-        ':',
         React.createElement(
-          'span',
-          { className: 'details--date' },
-          sol
-        )
-      ),
-      React.createElement(
-        'div',
-        { className: 'weather-card--details' },
-        React.createElement(
-          'span',
-          { className: 'details--day' },
-          month
+          'div',
+          { className: 'weather-card--details' },
+          React.createElement(
+            'span',
+            { className: 'details--day' },
+            'Sol'
+          ),
+          ':',
+          React.createElement(
+            'span',
+            { className: 'details--date' },
+            sol
+          )
         ),
-        '/',
         React.createElement(
-          'span',
-          { className: 'details--date' },
-          day
+          'div',
+          { className: 'weather-card--details' },
+          React.createElement(
+            'span',
+            { className: 'details--day' },
+            month
+          ),
+          '/',
+          React.createElement(
+            'span',
+            { className: 'details--date' },
+            day
+          ),
+          '/',
+          React.createElement(
+            'span',
+            { className: 'details--time' },
+            year
+          )
         ),
-        '/',
         React.createElement(
-          'span',
-          { className: 'details--time' },
-          year
-        )
-      ),
-      React.createElement(
-        'div',
-        { className: 'weather-card--temperature' },
+          'div',
+          { className: 'weather-card--temperature' },
+          React.createElement(
+            'ul',
+            null,
+            React.createElement('li', { className: 'outer-temp' }),
+            React.createElement(
+              'li',
+              { className: 'mid-temp left-50' },
+              minTemp
+            ),
+            React.createElement(
+              'li',
+              { className: 'current-temp' },
+              avgTemp
+            ),
+            React.createElement(
+              'li',
+              { className: 'mid-temp right-50' },
+              maxTemp
+            ),
+            React.createElement('li', { className: 'outer-temp' })
+          )
+        ),
         React.createElement(
-          'ul',
-          null,
+          'div',
+          { className: 'weather-card-table' },
           React.createElement(
-            'li',
-            { className: 'outer-temp' },
-            '22'
-          ),
-          React.createElement(
-            'li',
-            { className: 'mid-temp left-50' },
-            '26'
-          ),
-          React.createElement(
-            'li',
-            { className: 'current-temp' },
-            '29'
-          ),
-          React.createElement(
-            'li',
-            { className: 'mid-temp right-50' },
-            '28'
-          ),
-          React.createElement(
-            'li',
-            { className: 'outer-temp' },
-            '30'
+            'table',
+            { className: 'table table-hover' },
+            React.createElement(
+              'tbody',
+              null,
+              React.createElement(
+                'tr',
+                null,
+                React.createElement(
+                  'td',
+                  null,
+                  'Pressure:'
+                ),
+                React.createElement(
+                  'td',
+                  null,
+                  pressure,
+                  ' ',
+                  React.createElement(
+                    'span',
+                    null,
+                    'Pa'
+                  )
+                )
+              ),
+              React.createElement(
+                'tr',
+                null,
+                React.createElement(
+                  'td',
+                  null,
+                  'Sunrise:'
+                ),
+                React.createElement(
+                  'td',
+                  null,
+                  sunrise
+                )
+              ),
+              React.createElement(
+                'tr',
+                null,
+                React.createElement(
+                  'td',
+                  null,
+                  'Sunset:'
+                ),
+                React.createElement(
+                  'td',
+                  null,
+                  sunset
+                )
+              ),
+              React.createElement(
+                'tr',
+                null,
+                React.createElement(
+                  'td',
+                  null,
+                  'July'
+                ),
+                React.createElement(
+                  'td',
+                  null,
+                  'Dooley'
+                )
+              )
+            )
           )
         )
       )
@@ -119,4 +196,14 @@ var Weatherbox = function Weatherbox(props) {
 };
 
 window.Weatherbox = Weatherbox;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9jb21wb25lbnRzL1dlYXRoZXJib3guanN4Il0sIm5hbWVzIjpbIldlYXRoZXJib3giLCJwcm9wcyIsImN1cnJlbnRTb2wiLCJzb2xzIiwic29sIiwieWVhciIsImRheSIsIm1vbnRoIiwid2VhdGhlciIsImhhc093blByb3BlcnR5IiwiSlNPTnByZXR0aWZ5IiwicmVzdWx0cyIsImRhdGUiLCJ0ZXJyZXN0cmlhbF9kYXRlIiwic2xpY2UiLCJ3aW5kb3ciXSwibWFwcGluZ3MiOiI7O0FBQUEsSUFBSUEsYUFBYSxTQUFiQSxVQUFhLENBQUNDLEtBQUQsRUFBVztBQUMxQjtBQUNBLE1BQUlDLFVBQUosRUFBZ0JDLElBQWhCLEVBQXNCQyxHQUF0QixFQUEyQkMsSUFBM0IsRUFBaUNDLEdBQWpDLEVBQXNDQyxLQUF0Qzs7QUFFQSxNQUFHTixNQUFNTyxPQUFOLENBQWNDLGNBQWQsQ0FBNkIsU0FBN0IsQ0FBSCxFQUE0QztBQUMxQ0MsaUJBQWFULE1BQU1PLE9BQU4sQ0FBY0csT0FBZCxDQUFzQixDQUF0QixDQUFiOztBQUVBOzs7QUFHQVIsV0FBT0YsTUFBTU8sT0FBTixDQUFjRyxPQUFyQjtBQUNBVCxpQkFBYUMsS0FBSyxDQUFMLENBQWI7QUFDQUMsVUFBTUYsV0FBV0UsR0FBakI7O0FBRUE7QUFDQSxRQUFJUSxPQUFPVixXQUFXVyxnQkFBdEI7QUFDQVIsV0FBT08sS0FBS0UsS0FBTCxDQUFXLENBQVgsRUFBYSxDQUFiLENBQVA7QUFDQVAsWUFBUUssS0FBS0UsS0FBTCxDQUFXLENBQVgsRUFBYSxDQUFiLENBQVI7QUFDQVIsVUFBTU0sS0FBS0UsS0FBTCxDQUFXLENBQVgsRUFBYSxFQUFiLENBQU47QUFFRDtBQUNELFNBQ0U7QUFBQTtBQUFBO0FBQ0U7QUFBQTtBQUFBLFFBQUssV0FBVSxjQUFmO0FBQ0U7QUFBQTtBQUFBLFVBQUssV0FBVSx3QkFBZjtBQUNFO0FBQUE7QUFBQSxZQUFLLFdBQVUsVUFBZjtBQUNFLHVDQUFLLEtBQUksZ0NBQVQ7QUFERixTQURGO0FBSUUscUNBQUssV0FBVSxRQUFmO0FBSkYsT0FERjtBQU9FO0FBQUE7QUFBQSxVQUFLLFdBQVUsd0JBQWY7QUFDRTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBREYsT0FQRjtBQVlFO0FBQUE7QUFBQSxVQUFLLFdBQVUsdUJBQWY7QUFDRTtBQUFBO0FBQUEsWUFBTSxXQUFVLGNBQWhCO0FBQUE7QUFBQSxTQURGO0FBQUE7QUFHRTtBQUFBO0FBQUEsWUFBTSxXQUFVLGVBQWhCO0FBQWlDVjtBQUFqQztBQUhGLE9BWkY7QUFpQkU7QUFBQTtBQUFBLFVBQUssV0FBVSx1QkFBZjtBQUNFO0FBQUE7QUFBQSxZQUFNLFdBQVUsY0FBaEI7QUFBZ0NHO0FBQWhDLFNBREY7QUFBQTtBQUdFO0FBQUE7QUFBQSxZQUFNLFdBQVUsZUFBaEI7QUFBaUNEO0FBQWpDLFNBSEY7QUFBQTtBQUtFO0FBQUE7QUFBQSxZQUFNLFdBQVUsZUFBaEI7QUFBaUNEO0FBQWpDO0FBTEYsT0FqQkY7QUF3QkU7QUFBQTtBQUFBLFVBQUssV0FBVSwyQkFBZjtBQUNFO0FBQUE7QUFBQTtBQUNFO0FBQUE7QUFBQSxjQUFJLFdBQVUsWUFBZDtBQUFBO0FBQUEsV0FERjtBQUVFO0FBQUE7QUFBQSxjQUFJLFdBQVUsa0JBQWQ7QUFBQTtBQUFBLFdBRkY7QUFHRTtBQUFBO0FBQUEsY0FBSSxXQUFVLGNBQWQ7QUFBQTtBQUFBLFdBSEY7QUFJRTtBQUFBO0FBQUEsY0FBSSxXQUFVLG1CQUFkO0FBQUE7QUFBQSxXQUpGO0FBS0U7QUFBQTtBQUFBLGNBQUksV0FBVSxZQUFkO0FBQUE7QUFBQTtBQUxGO0FBREY7QUF4QkY7QUFERixHQURGO0FBc0NELENBM0REOztBQTZEQVUsT0FBT2YsVUFBUCxHQUFvQkEsVUFBcEIiLCJmaWxlIjoiV2VhdGhlcmJveC5qcyIsInNvdXJjZXNDb250ZW50IjpbInZhciBXZWF0aGVyYm94ID0gKHByb3BzKSA9PiB7XG4gIC8vIEpTT05wcmV0dGlmeShwcm9wcy53ZWF0aGVyLmhhc09XbnByb3BlcnR5KCkpO1xuICB2YXIgY3VycmVudFNvbCwgc29scywgc29sLCB5ZWFyLCBkYXksIG1vbnRoO1xuXG4gIGlmKHByb3BzLndlYXRoZXIuaGFzT3duUHJvcGVydHkoJ3Jlc3VsdHMnKSkge1xuICAgIEpTT05wcmV0dGlmeShwcm9wcy53ZWF0aGVyLnJlc3VsdHNbMF0pO1xuXG4gICAgLy9Gb3JtYXQgZGF0YSwgcmVmYWN0b3IgbGF0ZXJcbiAgICBcblxuICAgIHNvbHMgPSBwcm9wcy53ZWF0aGVyLnJlc3VsdHM7XG4gICAgY3VycmVudFNvbCA9IHNvbHNbMF07XG4gICAgc29sID0gY3VycmVudFNvbC5zb2w7XG5cbiAgICAvL0VhcnRoIGRhdGFcbiAgICB2YXIgZGF0ZSA9IGN1cnJlbnRTb2wudGVycmVzdHJpYWxfZGF0ZTtcbiAgICB5ZWFyID0gZGF0ZS5zbGljZSgwLDQpO1xuICAgIG1vbnRoID0gZGF0ZS5zbGljZSg1LDcpO1xuICAgIGRheSA9IGRhdGUuc2xpY2UoOCwxMCk7XG5cbiAgfVxuICByZXR1cm4oXG4gICAgPGRpdj5cbiAgICAgIDxkaXYgY2xhc3NOYW1lPSd3ZWF0aGVyLWNhcmQnPlxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT0nd2VhdGhlci1jYXJkLS1sYW5kbWFyayc+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9J2xhbmRtYXJrJz5cbiAgICAgICAgICAgIDxpbWcgc3JjPSdodHRwOi8vaS5pbWd1ci5jb20vTXBmVGgzTC5wbmcnLz5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0nY2xvdWRzJz48L2Rpdj5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPSd3ZWF0aGVyLWNhcmQtLWNpdHluYW1lJz5cbiAgICAgICAgICA8aDE+XG4gICAgICAgICAgICBPbHltcHVzIE1vbnNcbiAgICAgICAgICA8L2gxPlxuICAgICAgICA8L2Rpdj5cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9J3dlYXRoZXItY2FyZC0tZGV0YWlscyc+XG4gICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSdkZXRhaWxzLS1kYXknPlNvbDwvc3Bhbj5cbiAgICAgICAgICA6XG4gICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSdkZXRhaWxzLS1kYXRlJz57c29sfTwvc3Bhbj5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPSd3ZWF0aGVyLWNhcmQtLWRldGFpbHMnPlxuICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0nZGV0YWlscy0tZGF5Jz57bW9udGh9PC9zcGFuPlxuICAgICAgICAgIC9cbiAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9J2RldGFpbHMtLWRhdGUnPntkYXl9PC9zcGFuPlxuICAgICAgICAgIC9cbiAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9J2RldGFpbHMtLXRpbWUnPnt5ZWFyfTwvc3Bhbj5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPSd3ZWF0aGVyLWNhcmQtLXRlbXBlcmF0dXJlJz5cbiAgICAgICAgICA8dWw+XG4gICAgICAgICAgICA8bGkgY2xhc3NOYW1lPSdvdXRlci10ZW1wJz4yMjwvbGk+XG4gICAgICAgICAgICA8bGkgY2xhc3NOYW1lPSdtaWQtdGVtcCBsZWZ0LTUwJz4yNjwvbGk+XG4gICAgICAgICAgICA8bGkgY2xhc3NOYW1lPSdjdXJyZW50LXRlbXAnPjI5PC9saT5cbiAgICAgICAgICAgIDxsaSBjbGFzc05hbWU9J21pZC10ZW1wIHJpZ2h0LTUwJz4yODwvbGk+XG4gICAgICAgICAgICA8bGkgY2xhc3NOYW1lPSdvdXRlci10ZW1wJz4zMDwvbGk+XG4gICAgICAgICAgPC91bD5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cbiAgICA8L2Rpdj5cbiAgKTtcbn1cblxud2luZG93LldlYXRoZXJib3ggPSBXZWF0aGVyYm94OyJdfQ==
+
+// <div className='weather-card--temperature'>
+//   <ul>
+//     <li className='outer-temp'>23</li>
+//     <li className='mid-temp left-50'>26</li>
+//     <li className='current-temp'>29</li>
+//     <li className='mid-temp right-50'>28</li>
+//     <li className='outer-temp'>30</li>
+//   </ul>
+// </div>
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9jb21wb25lbnRzL1dlYXRoZXJib3guanN4Il0sIm5hbWVzIjpbIldlYXRoZXJib3giLCJwcm9wcyIsImN1cnJlbnRTb2wiLCJzb2xzIiwic29sIiwieWVhciIsImRheSIsIm1vbnRoIiwicHJlc3N1cmUiLCJzdW5zZXQiLCJzdW5yaXNlIiwibWluVGVtcCIsIm1heFRlbXAiLCJhdmdUZW1wIiwid2VhdGhlciIsImhhc093blByb3BlcnR5IiwiSlNPTnByZXR0aWZ5IiwicmVzdWx0cyIsImRhdGUiLCJ0ZXJyZXN0cmlhbF9kYXRlIiwic2xpY2UiLCJtaW5fdGVtcCIsIm1heF90ZW1wIiwid2luZG93Il0sIm1hcHBpbmdzIjoiOztBQUFBLElBQUlBLGFBQWEsU0FBYkEsVUFBYSxDQUFDQyxLQUFELEVBQVc7QUFDMUI7QUFDQSxNQUFJQyxVQUFKLEVBQWdCQyxJQUFoQixFQUFzQkMsR0FBdEIsRUFBMkJDLElBQTNCLEVBQWlDQyxHQUFqQyxFQUFzQ0MsS0FBdEMsRUFBNkNDLFFBQTdDLEVBQXVEQyxNQUF2RCxFQUErREMsT0FBL0Q7QUFDQSxNQUFJQyxPQUFKLEVBQWFDLE9BQWIsRUFBc0JDLE9BQXRCOztBQUVBLE1BQUdaLE1BQU1hLE9BQU4sQ0FBY0MsY0FBZCxDQUE2QixTQUE3QixDQUFILEVBQTRDO0FBQzFDQyxpQkFBYWYsTUFBTWEsT0FBTixDQUFjRyxPQUFkLENBQXNCLENBQXRCLENBQWI7O0FBRUE7OztBQUdBZCxXQUFPRixNQUFNYSxPQUFOLENBQWNHLE9BQXJCO0FBQ0FmLGlCQUFhQyxLQUFLLENBQUwsQ0FBYjtBQUNBQyxVQUFNRixXQUFXRSxHQUFqQjs7QUFFQTtBQUNBLFFBQUljLE9BQU9oQixXQUFXaUIsZ0JBQXRCO0FBQ0FkLFdBQU9hLEtBQUtFLEtBQUwsQ0FBVyxDQUFYLEVBQWEsQ0FBYixDQUFQO0FBQ0FiLFlBQVFXLEtBQUtFLEtBQUwsQ0FBVyxDQUFYLEVBQWEsQ0FBYixDQUFSO0FBQ0FkLFVBQU1ZLEtBQUtFLEtBQUwsQ0FBVyxDQUFYLEVBQWEsRUFBYixDQUFOOztBQUVBO0FBQ0FULGNBQVVULFdBQVdtQixRQUFyQjtBQUNBVCxjQUFVVixXQUFXb0IsUUFBckI7QUFDQVQsY0FBVSxDQUFDRCxVQUFVRCxPQUFYLElBQXNCLENBQWhDOztBQUdBSCxlQUFXTixXQUFXTSxRQUF0Qjs7QUFFQUUsY0FBVVIsV0FBV1EsT0FBWCxDQUFtQlUsS0FBbkIsQ0FBeUIsRUFBekIsRUFBNEIsRUFBNUIsQ0FBVjtBQUNBWCxhQUFTUCxXQUFXTyxNQUFYLENBQWtCVyxLQUFsQixDQUF3QixFQUF4QixFQUEyQixFQUEzQixDQUFUO0FBR0Q7QUFDRCxTQUNFO0FBQUE7QUFBQTtBQUNFO0FBQUE7QUFBQSxRQUFLLFdBQVUsY0FBZjtBQUNFO0FBQUE7QUFBQSxVQUFLLFdBQVUsd0JBQWY7QUFDRTtBQUFBO0FBQUEsWUFBSyxXQUFVLFVBQWY7QUFDRSx1Q0FBSyxLQUFJLGdDQUFUO0FBREYsU0FERjtBQUlFLHFDQUFLLFdBQVUsUUFBZjtBQUpGLE9BREY7QUFPRTtBQUFBO0FBQUEsVUFBSyxXQUFVLHdCQUFmO0FBQ0U7QUFBQTtBQUFBO0FBQUE7QUFBQSxTQURGO0FBSUU7QUFBQTtBQUFBLFlBQUssV0FBVSx1QkFBZjtBQUNFO0FBQUE7QUFBQSxjQUFNLFdBQVUsY0FBaEI7QUFBQTtBQUFBLFdBREY7QUFBQTtBQUdFO0FBQUE7QUFBQSxjQUFNLFdBQVUsZUFBaEI7QUFBaUNoQjtBQUFqQztBQUhGLFNBSkY7QUFTRTtBQUFBO0FBQUEsWUFBSyxXQUFVLHVCQUFmO0FBQ0U7QUFBQTtBQUFBLGNBQU0sV0FBVSxjQUFoQjtBQUFnQ0c7QUFBaEMsV0FERjtBQUFBO0FBR0U7QUFBQTtBQUFBLGNBQU0sV0FBVSxlQUFoQjtBQUFpQ0Q7QUFBakMsV0FIRjtBQUFBO0FBS0U7QUFBQTtBQUFBLGNBQU0sV0FBVSxlQUFoQjtBQUFpQ0Q7QUFBakM7QUFMRixTQVRGO0FBZ0JFO0FBQUE7QUFBQSxZQUFLLFdBQVUsMkJBQWY7QUFDRTtBQUFBO0FBQUE7QUFDRSx3Q0FBSSxXQUFVLFlBQWQsR0FERjtBQUVFO0FBQUE7QUFBQSxnQkFBSSxXQUFVLGtCQUFkO0FBQWtDTTtBQUFsQyxhQUZGO0FBR0U7QUFBQTtBQUFBLGdCQUFJLFdBQVUsY0FBZDtBQUE4QkU7QUFBOUIsYUFIRjtBQUlFO0FBQUE7QUFBQSxnQkFBSSxXQUFVLG1CQUFkO0FBQW1DRDtBQUFuQyxhQUpGO0FBS0Usd0NBQUksV0FBVSxZQUFkO0FBTEY7QUFERixTQWhCRjtBQXlCRTtBQUFBO0FBQUEsWUFBSyxXQUFVLG9CQUFmO0FBQ0U7QUFBQTtBQUFBLGNBQU8sV0FBVSxtQkFBakI7QUFDRTtBQUFBO0FBQUE7QUFDRTtBQUFBO0FBQUE7QUFDRTtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQURGO0FBRUU7QUFBQTtBQUFBO0FBQUtKLDBCQUFMO0FBQUE7QUFBZTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQWY7QUFGRixlQURGO0FBS0U7QUFBQTtBQUFBO0FBQ0U7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFERjtBQUVFO0FBQUE7QUFBQTtBQUFLRTtBQUFMO0FBRkYsZUFMRjtBQVNFO0FBQUE7QUFBQTtBQUNFO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUJBREY7QUFFRTtBQUFBO0FBQUE7QUFBS0Q7QUFBTDtBQUZGLGVBVEY7QUFhRTtBQUFBO0FBQUE7QUFDRTtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQURGO0FBRUU7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUZGO0FBYkY7QUFERjtBQURGO0FBekJGO0FBUEY7QUFERixHQURGO0FBNERELENBOUZEOztBQWdHQWMsT0FBT3ZCLFVBQVAsR0FBb0JBLFVBQXBCOztBQUdVO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsImZpbGUiOiJXZWF0aGVyYm94LmpzIiwic291cmNlc0NvbnRlbnQiOlsidmFyIFdlYXRoZXJib3ggPSAocHJvcHMpID0+IHtcbiAgLy8gSlNPTnByZXR0aWZ5KHByb3BzLndlYXRoZXIuaGFzT1ducHJvcGVydHkoKSk7XG4gIHZhciBjdXJyZW50U29sLCBzb2xzLCBzb2wsIHllYXIsIGRheSwgbW9udGgsIHByZXNzdXJlLCBzdW5zZXQsIHN1bnJpc2U7XG4gIHZhciBtaW5UZW1wLCBtYXhUZW1wLCBhdmdUZW1wO1xuXG4gIGlmKHByb3BzLndlYXRoZXIuaGFzT3duUHJvcGVydHkoJ3Jlc3VsdHMnKSkge1xuICAgIEpTT05wcmV0dGlmeShwcm9wcy53ZWF0aGVyLnJlc3VsdHNbMF0pO1xuXG4gICAgLy9Gb3JtYXQgZGF0YSwgcmVmYWN0b3IgbGF0ZXJcbiAgICBcblxuICAgIHNvbHMgPSBwcm9wcy53ZWF0aGVyLnJlc3VsdHM7XG4gICAgY3VycmVudFNvbCA9IHNvbHNbMF07XG4gICAgc29sID0gY3VycmVudFNvbC5zb2w7XG5cbiAgICAvL0VhcnRoIGRhdGFcbiAgICB2YXIgZGF0ZSA9IGN1cnJlbnRTb2wudGVycmVzdHJpYWxfZGF0ZTtcbiAgICB5ZWFyID0gZGF0ZS5zbGljZSgwLDQpO1xuICAgIG1vbnRoID0gZGF0ZS5zbGljZSg1LDcpO1xuICAgIGRheSA9IGRhdGUuc2xpY2UoOCwxMCk7XG5cbiAgICAvL1RlbXBlcmF0dXJlIERhdGFcbiAgICBtaW5UZW1wID0gY3VycmVudFNvbC5taW5fdGVtcDtcbiAgICBtYXhUZW1wID0gY3VycmVudFNvbC5tYXhfdGVtcDtcbiAgICBhdmdUZW1wID0gKG1heFRlbXAgKyBtaW5UZW1wKSAvIDI7XG5cblxuICAgIHByZXNzdXJlID0gY3VycmVudFNvbC5wcmVzc3VyZTtcblxuICAgIHN1bnJpc2UgPSBjdXJyZW50U29sLnN1bnJpc2Uuc2xpY2UoMTEsMTYpO1xuICAgIHN1bnNldCA9IGN1cnJlbnRTb2wuc3Vuc2V0LnNsaWNlKDExLDE2KTtcblxuXG4gIH1cbiAgcmV0dXJuKFxuICAgIDxkaXY+XG4gICAgICA8ZGl2IGNsYXNzTmFtZT0nd2VhdGhlci1jYXJkJz5cbiAgICAgICAgPGRpdiBjbGFzc05hbWU9J3dlYXRoZXItY2FyZC0tbGFuZG1hcmsnPlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSdsYW5kbWFyayc+XG4gICAgICAgICAgICA8aW1nIHNyYz0naHR0cDovL2kuaW1ndXIuY29tL01wZlRoM0wucG5nJy8+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9J2Nsb3Vkcyc+PC9kaXY+XG4gICAgICAgIDwvZGl2PlxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT0nd2VhdGhlci1jYXJkLS1jaXR5bmFtZSc+XG4gICAgICAgICAgPGgxPlxuICAgICAgICAgICAgT2x5bXB1cyBNb25zXG4gICAgICAgICAgPC9oMT5cbiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0nd2VhdGhlci1jYXJkLS1kZXRhaWxzJz5cbiAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT0nZGV0YWlscy0tZGF5Jz5Tb2w8L3NwYW4+XG4gICAgICAgICAgICA6XG4gICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9J2RldGFpbHMtLWRhdGUnPntzb2x9PC9zcGFuPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSd3ZWF0aGVyLWNhcmQtLWRldGFpbHMnPlxuICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSdkZXRhaWxzLS1kYXknPnttb250aH08L3NwYW4+XG4gICAgICAgICAgICAvXG4gICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9J2RldGFpbHMtLWRhdGUnPntkYXl9PC9zcGFuPlxuICAgICAgICAgICAgL1xuICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPSdkZXRhaWxzLS10aW1lJz57eWVhcn08L3NwYW4+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9J3dlYXRoZXItY2FyZC0tdGVtcGVyYXR1cmUnPlxuICAgICAgICAgICAgPHVsPlxuICAgICAgICAgICAgICA8bGkgY2xhc3NOYW1lPSdvdXRlci10ZW1wJz48L2xpPlxuICAgICAgICAgICAgICA8bGkgY2xhc3NOYW1lPSdtaWQtdGVtcCBsZWZ0LTUwJz57bWluVGVtcH08L2xpPlxuICAgICAgICAgICAgICA8bGkgY2xhc3NOYW1lPSdjdXJyZW50LXRlbXAnPnthdmdUZW1wfTwvbGk+XG4gICAgICAgICAgICAgIDxsaSBjbGFzc05hbWU9J21pZC10ZW1wIHJpZ2h0LTUwJz57bWF4VGVtcH08L2xpPlxuICAgICAgICAgICAgICA8bGkgY2xhc3NOYW1lPSdvdXRlci10ZW1wJz48L2xpPlxuICAgICAgICAgICAgPC91bD5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0nd2VhdGhlci1jYXJkLXRhYmxlJz5cbiAgICAgICAgICAgIDx0YWJsZSBjbGFzc05hbWU9XCJ0YWJsZSB0YWJsZS1ob3ZlclwiPlxuICAgICAgICAgICAgICA8dGJvZHk+XG4gICAgICAgICAgICAgICAgPHRyPlxuICAgICAgICAgICAgICAgICAgPHRkPlByZXNzdXJlOjwvdGQ+XG4gICAgICAgICAgICAgICAgICA8dGQ+e3ByZXNzdXJlfSA8c3Bhbj5QYTwvc3Bhbj48L3RkPlxuICAgICAgICAgICAgICAgIDwvdHI+XG4gICAgICAgICAgICAgICAgPHRyPlxuICAgICAgICAgICAgICAgICAgPHRkPlN1bnJpc2U6PC90ZD5cbiAgICAgICAgICAgICAgICAgIDx0ZD57c3VucmlzZX08L3RkPlxuICAgICAgICAgICAgICAgIDwvdHI+XG4gICAgICAgICAgICAgICAgPHRyPlxuICAgICAgICAgICAgICAgICAgPHRkPlN1bnNldDo8L3RkPlxuICAgICAgICAgICAgICAgICAgPHRkPntzdW5zZXR9PC90ZD5cbiAgICAgICAgICAgICAgICA8L3RyPlxuICAgICAgICAgICAgICAgIDx0cj5cbiAgICAgICAgICAgICAgICAgIDx0ZD5KdWx5PC90ZD5cbiAgICAgICAgICAgICAgICAgIDx0ZD5Eb29sZXk8L3RkPlxuICAgICAgICAgICAgICAgIDwvdHI+XG4gICAgICAgICAgICAgIDwvdGJvZHk+XG4gICAgICAgICAgICA8L3RhYmxlPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PlxuICAgIDwvZGl2PlxuICApO1xufVxuXG53aW5kb3cuV2VhdGhlcmJveCA9IFdlYXRoZXJib3g7XG5cblxuICAgICAgICAgIC8vIDxkaXYgY2xhc3NOYW1lPSd3ZWF0aGVyLWNhcmQtLXRlbXBlcmF0dXJlJz5cbiAgICAgICAgICAvLyAgIDx1bD5cbiAgICAgICAgICAvLyAgICAgPGxpIGNsYXNzTmFtZT0nb3V0ZXItdGVtcCc+MjM8L2xpPlxuICAgICAgICAgIC8vICAgICA8bGkgY2xhc3NOYW1lPSdtaWQtdGVtcCBsZWZ0LTUwJz4yNjwvbGk+XG4gICAgICAgICAgLy8gICAgIDxsaSBjbGFzc05hbWU9J2N1cnJlbnQtdGVtcCc+Mjk8L2xpPlxuICAgICAgICAgIC8vICAgICA8bGkgY2xhc3NOYW1lPSdtaWQtdGVtcCByaWdodC01MCc+Mjg8L2xpPlxuICAgICAgICAgIC8vICAgICA8bGkgY2xhc3NOYW1lPSdvdXRlci10ZW1wJz4zMDwvbGk+XG4gICAgICAgICAgLy8gICA8L3VsPlxuICAgICAgICAgIC8vIDwvZGl2PiJdfQ==
