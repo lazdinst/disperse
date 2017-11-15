@@ -9,7 +9,7 @@ Install the required packages
 ```
 npm install
 ```
-Run the following comman to start the react build
+Run the following command to start the react build
 ```
 npm start
 ```
